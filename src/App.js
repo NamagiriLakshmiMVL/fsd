@@ -1,25 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import React, { useState } from "react"
+import { useEffect } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+async function App() {
+  const [productlist, setProductlist] = useState([])
+  await fetch("https://fakestoreapi.com/products")
+  .then((res)=>res.json())
+  .then((data)=>setProductlist(data))
+
+return (
+    <div>
+
+      {productlist.map((val) => {
+
+        <div>
+         
+          <p>{val.id}</p>
+          <p>{val.title}</p>
+          <p>{val.price}</p>
+          <p>{val.description}</p>
+        </div>
+      })}
+    </div >
   );
 }
+
+
+
 
 export default App;
